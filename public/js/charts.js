@@ -224,12 +224,12 @@ const DRAW = {
     let svg = frame(m, sc, spec.format, bars.map((b) => b.label), x, { y, maxLabels: 14 });
     bars.forEach((b, i) => {
       const y0 = y(Math.max(b.from, b.to)), y1 = y(Math.min(b.from, b.to));
-      const color = b.total ? 'var(--series-1)' : b.value >= 0 ? 'var(--series-3)' : 'var(--series-8)';
+      const color = b.total ? 'var(--series-1)' : b.value >= 0 ? 'var(--wf-up)' : 'var(--wf-down)';
       svg += `<rect x="${x(i) - band * 0.34}" y="${y0}" width="${band * 0.68}" height="${Math.max(1.5, y1 - y0)}" rx="3" fill="${color}" ${T(`<b>${esc(b.label)}</b><div>${esc(b.total ? fmt(b.value, spec.format) : (b.value >= 0 ? '+' : '') + fmt(b.value, spec.format))}</div>`)}/>`;
       if (i < n - 1) svg += `<line x1="${x(i) + band * 0.34}" x2="${x(i + 1) - band * 0.34}" y1="${y(b.to)}" y2="${y(b.to)}" stroke="var(--text-3)" stroke-dasharray="2 2"/>`;
       if (b.total || n <= 9) svg += `<text x="${x(i)}" y="${y0 - 5}" text-anchor="middle" style="fill:var(--text-2);font-size:10.5px">${esc(fmt(b.value, spec.format))}</text>`;
     });
-    return { svg: wrapSvg(svg), legendItems: [{ name: 'Total', color: 'var(--series-1)' }, { name: 'Increase', color: 'var(--series-3)' }, { name: 'Decrease', color: 'var(--series-8)' }] };
+    return { svg: wrapSvg(svg), legendItems: [{ name: 'Total', color: 'var(--series-1)' }, { name: 'Increase', color: 'var(--wf-up)' }, { name: 'Decrease', color: 'var(--wf-down)' }] };
   },
 
   donut(spec) {
@@ -297,7 +297,7 @@ const DRAW = {
     const rows = spec.rows.length, cols = spec.cols.length;
     const cw = (W - m.l - m.r) / cols, ch = 24;
     const h = m.t + m.b + rows * ch;
-    const ramp = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95', '#0d366b'];
+    const ramp = ['#d6e4f5', '#a9c8ec', '#7aa9de', '#4a87cc', '#1f66b5', '#00479e', '#00338d']; // sequential KPMG blue
     const vals = spec.values.flat().filter((v) => v !== undefined);
     const lo = Math.min(...vals), hi = Math.max(...vals);
     let svg = '';
@@ -320,14 +320,14 @@ const DRAW = {
     const h = m.t + m.b + n * rowH;
     let svg = '';
     for (let d = 0; d <= maxDay; d++) svg += `<line class="gridline" x1="${x(d)}" x2="${x(d)}" y1="${m.t - 4}" y2="${h - m.b}"/>${d ? `<text class="axis" x="${x(d - 0.5)}" y="${m.t - 8}" text-anchor="middle">D${d}</text>` : ''}`;
-    svg += `<line x1="${x(spec.target)}" x2="${x(spec.target)}" y1="${m.t - 4}" y2="${h}" stroke="var(--series-8)" stroke-width="2" stroke-dasharray="4 3"/>`;
+    svg += `<line x1="${x(spec.target)}" x2="${x(spec.target)}" y1="${m.t - 4}" y2="${h}" stroke="var(--bad)" stroke-width="2" stroke-dasharray="4 3"/>`;
     spec.tasks.forEach((t, i) => {
       const yy = m.t + i * rowH;
       const color = t.status === 'Done' ? 'var(--series-3)' : t.status === 'Done (late)' ? 'var(--series-2)' : t.status === 'In progress' ? 'var(--series-1)' : 'var(--text-3)';
       svg += `<text class="axis" x="${m.l - 8}" y="${yy + 13}" text-anchor="end" style="fill:var(--text-2);font-size:10.5px">${esc(t.label.length > 34 ? t.label.slice(0, 33) + '…' : t.label)}</text>`;
       svg += `<rect x="${x(t.start)}" y="${yy + 3}" width="${Math.max(4, x(t.end) - x(t.start))}" height="${rowH - 6}" rx="3" fill="${color}" ${t.status === 'Not started' ? 'fill-opacity=".35"' : ''} ${T(`<b>${esc(t.label)}</b><div>${esc(t.status)} · day ${t.start + 1}–${t.end}</div>`)}/>`;
     });
-    return { svg: wrapSvg(svg, h), legendItems: [{ name: 'Done', color: 'var(--series-3)' }, { name: 'Done late', color: 'var(--series-2)' }, { name: 'In progress', color: 'var(--series-1)' }, { name: 'Not started', color: 'var(--text-3)' }, { name: `Target day ${spec.target}`, color: 'var(--series-8)', line: true }] };
+    return { svg: wrapSvg(svg, h), legendItems: [{ name: 'Done', color: 'var(--series-3)' }, { name: 'Done late', color: 'var(--series-2)' }, { name: 'In progress', color: 'var(--series-1)' }, { name: 'Not started', color: 'var(--text-3)' }, { name: `Target day ${spec.target}`, color: 'var(--bad)', line: true }] };
   },
 
   football(spec) {

@@ -56,6 +56,12 @@ The tests check that every agent in the catalogue has an engine.
 
 `GET /api/meta` · `GET /api/agents?q=&category=&persona=&maturity=` · `GET /api/agents/:id` · `POST /api/agents/:id/run` · `POST /api/agents/:id/ask` · `POST /api/favorites/:id` · `POST /api/roi` · `GET|POST /api/proposals` · `GET|DELETE /api/proposals/:id` · `GET /api/analytics` · `GET /api/company`
 
+## Branding
+
+The UI uses a KPMG-inspired corporate theme. All colours are defined once, in the `:root` blocks at the top of `public/styles.css`. Chart colours were checked for colour-blind separation and contrast in light and dark mode.
+
+The logo is a **placeholder** at `public/brand/logo.svg`. Replace it with the official file from your brand portal; see `public/brand/README.md`. It shows in the header and on every proposal cover. Only use a company's logo if you're authorised to under its brand guidelines.
+
 ## Claude copilot (optional)
 
 Set `ANTHROPIC_API_KEY` to have Claude (`claude-opus-5-5` by default; override with `CLAUDE_MODEL`) answer "Ask the agent" questions. Answers are grounded in the agent's computed result. Without a key, the app gives a deterministic answer built from the same result, so demos work offline.

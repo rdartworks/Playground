@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Finance Agent Catalogue</title>
   <meta name="description" content="Sales-enablement catalogue of 50 AI finance agents with live demos on a seeded demo company.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232f5d3a'/><text x='16' y='22' text-anchor='middle' font-size='18' fill='%23fbf8ef' font-family='Arial'>✳</text></svg>">
+  <link rel="icon" href="/brand/logo.svg">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#/"><span class="brand-mark">✳</span>Finance Agent Catalogue</a>
+    <a class="brand" href="#/"><img class="logo" src="/brand/logo.svg" alt="Company logo"><span class="brand-divider" aria-hidden="true"></span><span class="app-name">Finance Agent Catalogue</span></a>
     <nav class="nav" aria-label="Main">
       <a href="#/" data-route="catalogue">Catalogue</a>
       <a href="#/roi" data-route="roi">ROI builder</a>
@@ -20,7 +20,7 @@
     </nav>
     <span class="spacer"></span>
     <label class="rep-select">Demoing as <select class="input" id="rep" aria-label="Sales rep"></select></label>
-    <button class="icon-btn" id="theme" title="Toggle theme" aria-label="Toggle theme">◐</button>
+    <button class="icon-btn" id="theme" title="Toggle theme" aria-label="Toggle theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button>
   </header>
   <main id="view"><div class="skeleton" style="height:240px"></div></main>
   <div class="footer">Demo tenant data is synthetic. Agents compute live on every run.</div>
