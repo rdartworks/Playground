@@ -1,6 +1,7 @@
 import { renderChart } from './charts.js';
 import { esc, fmt, money, statusBadge } from './format.js';
 
+const LOGO_SRC = '/brand/logo.svg'; // swap for the official logo; see public/brand/README.md
 const $ = (sel, root = document) => root.querySelector(sel);
 const view = $('#view');
 const store = {
@@ -130,7 +131,7 @@ async function renderCatalogue() {
   if (!$('#catalogue-root')) {
     view.innerHTML = `<div id="catalogue-root">
       <div class="hero">
-        <div class="hero-main"><div class="eyebrow" style="color:#d9e8d9">Sales enablement · Finance AI</div>
+        <div class="hero-main"><div class="eyebrow">Sales enablement · Finance AI</div>
           <h1>${m.agentCount} finance agents, demo-ready on live data</h1>
           <p>Every agent runs real analysis on a fully populated demo company: P&L, customers, invoices, bills, payroll, debt and more. Find the right agent for your buyer, run it live, and turn it into an ROI-backed proposal.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="#/agent/cfo-decision-support">▶ Run a flagship demo</a><a class="btn outline" href="#/roi">Build an ROI case</a></div>
@@ -401,7 +402,7 @@ async function renderProposal(id) {
   p.agents.forEach((a) => { (byCat[a.categoryName] ||= []).push(a); });
   view.innerHTML = `<div class="no-print" style="display:flex;gap:8px;justify-content:space-between;margin-bottom:14px"><a href="#/proposals">← All proposals</a><div style="display:flex;gap:8px"><button class="btn" id="copylink">Copy link</button><button class="btn primary" onclick="window.print()">Print / save PDF</button></div></div>
     <div class="card proposal">
-      <div class="cover"><div class="eyebrow">Proposal · ${esc(p.created.slice(0, 10))}${p.rep ? ` · prepared by ${esc(p.rep)}` : ''}</div><h1>Finance AI agents for ${esc(p.prospect)}</h1><div class="muted" style="margin-top:6px">${esc(p.industry || 'Finance transformation')} · ${p.agents.length} agents · ${money(r.inputs.revenue)} revenue · ${r.inputs.financeFte}-person finance team</div></div>
+      <div class="cover"><img class="logo" src="${LOGO_SRC}" alt="Company logo"><div class="eyebrow">Proposal · ${esc(p.created.slice(0, 10))}${p.rep ? ` · prepared by ${esc(p.rep)}` : ''}</div><h1>Finance AI agents for ${esc(p.prospect)}</h1><div class="muted" style="margin-top:6px">${esc(p.industry || 'Finance transformation')} · ${p.agents.length} agents · ${money(r.inputs.revenue)} revenue · ${r.inputs.financeFte}-person finance team</div></div>
       <h2>Executive summary</h2>
       <p>Deploying ${p.agents.length} finance agents is projected to deliver <b>${money(r.totalValue)}</b> of annual value for an annual investment of <b>${money(r.totalCost)}</b> — a <b>${fmt(r.roiMultiple, 'multiple')}</b> return with payback in <b>${fmt(r.paybackMonths, 'months')}</b>. The agents free roughly <b>${fmt(r.hoursPerMonth, 'number')} hours per month</b> (≈${fmt(r.fteFreed, 'number1')} FTE) for analysis and business partnering.</p>
       ${renderKpis([{ label: 'Annual value', value: r.totalValue, format: 'currency', tone: 'good' }, { label: 'Annual investment', value: r.totalCost, format: 'currency' }, { label: 'ROI', value: r.roiMultiple, format: 'multiple', tone: 'good' }, { label: 'Payback', value: r.paybackMonths, format: 'months' }])}
