@@ -9,7 +9,7 @@ npm test             # 62 tests: every agent at default/min/max params, data rec
 npm run seed         # regenerate the demo tenant
 ```
 
-Requires Node 22.13+. There are no native modules: the server uses the built-in `node:http` and `node:sqlite`.
+Requires Node 22.5+. There are no native modules: the server uses the built-in `node:http` and `node:sqlite`.
 
 ## What's in it
 
