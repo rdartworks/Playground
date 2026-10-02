@@ -188,7 +188,8 @@ export function createApp(db) {
       let file = path.normalize(path.join(PUBLIC, decodeURIComponent(url.pathname)));
       if (!file.startsWith(PUBLIC)) return send(res, 403, { error: 'Forbidden' });
       if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) file = path.join(PUBLIC, 'index.html');
-      res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
+      // no-cache: browsers revalidate, so a redeploy or theme change shows up on a normal refresh
+      res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-cache' });
       fs.createReadStream(file).pipe(res);
     } catch (err) {
       const status = err.status || 500;
