@@ -1,0 +1,19 @@
+{
+  "name": "finance-agent-catalogue",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Sales-enablement catalogue of 50 AI finance agents with live demos on a seeded demo tenant.",
+  "scripts": {
+    "start": "node --no-warnings server/index.js",
+    "dev": "node --no-warnings --watch server/index.js",
+    "seed": "node --no-warnings server/seed.js",
+    "test": "node --no-warnings --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0"
+  }
+}
